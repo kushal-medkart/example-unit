@@ -8,7 +8,7 @@ class DeviceRepository {
     {
         $variable = 'initial value';
 
-        if ($input > 10) {
+        if ($input > 30) {
             $variable = 'updated value';
         }
 
