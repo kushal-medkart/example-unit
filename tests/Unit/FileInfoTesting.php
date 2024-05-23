@@ -7,7 +7,9 @@ final class FileInfoTesting extends TestCase
 {
     public function InvalidControllerPath()
     {
-        $this->assert(true);
+        $this->assertTrue(
+            true, "Controller {$controllerName} does not exist in base path: {$basePath}"
+        );
     }
 
 }
