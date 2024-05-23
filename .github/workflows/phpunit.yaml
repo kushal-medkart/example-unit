@@ -33,4 +33,4 @@ jobs:
       run: php artisan key:generate
 
     - name: Run PHPUnit tests
-      run: vendor/bin/phpunit tests/UnitTesting.php
+      run: vendor/bin/phpunit tests/Unit/UnitTesting.php
