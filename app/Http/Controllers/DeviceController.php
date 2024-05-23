@@ -14,7 +14,7 @@ class DeviceController extends Controller
         $this->deviceRepo = new DeviceRepository;
     }   
 
-    public function index() {
-        return $this->deviceRepo->execute();
+    public function index($id = 0) {
+        return $this->deviceRepo->execute($id);
     }
 }

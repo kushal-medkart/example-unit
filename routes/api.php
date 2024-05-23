@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/devices', [DeviceController::class, 'index']);
+Route::get('/devices/{id}', [DeviceController::class, 'index']);
