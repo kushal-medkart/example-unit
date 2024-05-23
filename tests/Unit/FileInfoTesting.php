@@ -5,9 +5,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 final class FileInfoTesting extends TestCase
 {
-    /**
-     * @dataProvider ExternalDataProvider::testProvider
-     */
     public function InvalidControllerPath()
     {
         $this->assert(true);
