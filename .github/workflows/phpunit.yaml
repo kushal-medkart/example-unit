@@ -41,7 +41,6 @@ jobs:
 
   HelloUnit:
     name: APPLE
-    needs: PHPUnit
     runs-on: ubuntu-latest
 
     steps:
