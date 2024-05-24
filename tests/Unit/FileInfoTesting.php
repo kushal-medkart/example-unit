@@ -40,4 +40,8 @@ final class FileInfoTesting extends TestCase
             $this->assertEquals($expectedRepositoryPath, $actualRepositoryPath);
         }
     }
+
+    public function testValidFileName() {
+        
+    }
 }
