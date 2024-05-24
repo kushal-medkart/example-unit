@@ -65,6 +65,9 @@ jobs:
     - name: Tests failed! Please fix file structure before merging.
       run: vendor/bin/phpunit tests/Unit/FileInfoTesting.php
 
+    concurrency:
+      group: 'run-tests1'
+
   production-deploy:
     needs: [ PHPUnit, HelloUnit ]
 
