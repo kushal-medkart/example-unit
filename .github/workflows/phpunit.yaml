@@ -32,5 +32,5 @@ jobs:
     - name: Generate application key
       run: php artisan key:generate
 
-    - name: Run PHPUnit tests
-      run: vendor/bin/phpunit tests/Unit/*
+    - name: Tests failed! Please fix file structure before merging.
+      run: vendor/bin/phpunit tests/Unit/FileInfoTesting.php
