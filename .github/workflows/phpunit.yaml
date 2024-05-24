@@ -34,3 +34,30 @@ jobs:
 
     - name: Tests failed! Please fix file structure before merging.
       run: vendor/bin/phpunit tests/Unit/FileInfoTesting.php
+
+
+  HelloUnit:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.1.2
+        extensions: mbstring, mysqli, pdo_mysql
+        coverage: none
+
+    - name: Install Composer dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Copy .env.example to .env
+      run: cp .env.example .env
+
+    - name: Generate application key
+      run: php artisan key:generate
+
+    - name: Tests failed! Please fix file structure before merging.
+      run: vendor/bin/phpunit tests/Unit/FileInfoTesting.php
