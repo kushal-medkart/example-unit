@@ -10,7 +10,7 @@ on:
 
 jobs:
   PHPUnit:
-
+    name: Build the Nuxt app
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
 
 
   HelloUnit:
-
+    name: APPLE
     runs-on: ubuntu-latest
 
     steps:
