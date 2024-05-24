@@ -36,6 +36,9 @@ jobs:
       run: vendor/bin/phpunit tests/Unit/FileInfoTesting.php
 
 
+    concurrency:
+      group: 'run-tests'
+
   HelloUnit:
     name: APPLE
     needs: PHPUnit
