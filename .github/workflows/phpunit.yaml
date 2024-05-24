@@ -9,7 +9,7 @@ on:
     branches: [master]
 
 jobs:
-  test:
+  PHPUnit:
 
     runs-on: ubuntu-latest
 
