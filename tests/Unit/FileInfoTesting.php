@@ -38,9 +38,8 @@ final class FileInfoTesting extends TestCase
         }
     }
 
-    public function testValidFileName() {
+    public function testValidControllerFileName() {
         $actualControllerPath = realpath(__DIR__.'/../../app/Http/Controllers');
-
 
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($actualControllerPath)
@@ -63,6 +62,34 @@ final class FileInfoTesting extends TestCase
                 }
             } catch (Exception $e) {
                 $this->assertTrue(false, "Controller name is not Classname!");
+            }
+        }
+    }
+
+    public function testValidRepositoryFileName() {
+        $actualRepositoryPath = realpath(__DIR__.'/../../app/Repository');
+
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($actualRepositoryPath)
+        );
+
+        $regexIterator = new RegexIterator($iterator, '/^.+\.php$/i',
+            RegexIterator::MATCH);
+
+        foreach ($regexIterator as $file) {
+            $namespace = getNameSpace(token_get_all(file_get_contents($file)));
+            $className = $namespace .'\\'.basename($file, '.php');
+            
+            try {
+                include_once($file);
+                $classObject = new $className;
+                if ($classObject instanceof App\Repository\BaseRepository) {
+                    $this->assertTrue(true, "class is instance of ...");
+                } else {
+                    $this->assertTrue(false, "class is not instance of ...");
+                }
+            } catch (Exception $e) {
+                $this->assertTrue(false, "Repository name is not Classname!");
             }
         }
     }

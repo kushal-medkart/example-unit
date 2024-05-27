@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-class DeviceRepository {
+class DeviceRepository extends BaseRepository {
     
     public function execute($input = 0)
     {
