@@ -10,7 +10,7 @@ on:
 
 jobs:
   PHPUnit:
-    name: Build the Nuxt app
+    name: Tests failed! Please fix file structure before merging!
     runs-on: ubuntu-latest
 
     steps:
