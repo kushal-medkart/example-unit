@@ -49,12 +49,9 @@ final class FileInfoTesting extends TestCase
         $regexIterator = new RegexIterator($iterator, '/^.+\.php$/i',
             RegexIterator::MATCH);
 
-        $fTokens = ['T_CLASS', 'T_WHITESPACE', 'T_STRING'];
         foreach ($regexIterator as $file) {
-            $Compiler = new CompilerCheck($file);
-            $namespace = $Compiler->getNameSpace();
+            $namespace = getNameSpace(token_get_all(file_get_contents($file)));
             $className = $namespace .'\\'.basename($file, '.php');
-        
             
             try {
                 include_once($file);
@@ -67,47 +64,16 @@ final class FileInfoTesting extends TestCase
             } catch (Exception $e) {
                 $this->assertTrue(false, "Controller name is not Classname!");
             }
-
         }
     }
 }
 
-
-class CompilerCheck {
-    function __construct($filename) {
-        $this->tokens = token_get_all(file_get_contents($filename));
-        $this->filename = $filename;
-    }
-
-    function HasValidClassName($fTokens) {
-        for ($i = 0; $i < count($this->tokens); $i++) {
-            /// The Design in It self is so complex
-            if (is_array($this->tokens[$i]) && token_name($this->tokens[$i][0]) == $fTokens[0]) {
-
-                for ($j = $i+1; $j < count($this->tokens); $j++)
-                {
-                    // break on invalid code
-                    // continue on Whitespace
-                    if (!is_array($this->tokens[$j])) { break; }
-                    else if (token_name($this->tokens[$j][0]) == $fTokens[1]) { continue; }
-                    else { 
-                        if(token_name($this->tokens[$j][0]) == $fTokens[2] && 
-                            basename($this->filename, '.php') == $this->tokens[$j][1]) 
-                            return true;
-                        break;
-                    }
-                }
-            } 
-        }
-        return false;
-    }
-
-    function getNameSpace() {
-        for ($i = 0; $i < count($this->tokens); $i++) {
-            if (is_array($this->tokens[$i]) && $this->tokens[$i][1] == "namespace") {
-                while (++$i < count($this->tokens) && token_name($this->tokens[$i][0]) == 'T_WHITESPACE');
-                return ($i < count($this->tokens)) ? $this->tokens[$i][1]: null;
-            }
+function getNameSpace($tokens) {
+    for ($i = 0; $i < count($tokens); $i++) {
+        if (is_array($tokens[$i]) && $tokens[$i][1] == "namespace") {
+            while (++$i < count($tokens) && token_name($tokens[$i][0]) == 'T_WHITESPACE');
+            return ($i < count($tokens)) ? $tokens[$i][1]: null;
         }
     }
 }
+
