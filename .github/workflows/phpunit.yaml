@@ -68,21 +68,3 @@ jobs:
     concurrency:
       group: 'run-tests1'
 
-  production-deploy:
-    needs: [ PHPUnit, HelloUnit ]
-
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: helloworld
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: 8.1.2
-        extensions: mbstring, mysqli, pdo_mysql
-        coverage: none
-
-    - name: Install Composer dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest

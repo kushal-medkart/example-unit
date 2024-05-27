@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repository\DeviceRepository;
 
-class DeviceController extends Controller
+class DeviceController extends ApiController
 {
     protected $deviceRepo;
     

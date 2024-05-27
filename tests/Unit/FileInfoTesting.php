@@ -52,7 +52,22 @@ final class FileInfoTesting extends TestCase
         $fTokens = ['T_CLASS', 'T_WHITESPACE', 'T_STRING'];
         foreach ($regexIterator as $file) {
             $Compiler = new CompilerCheck($file);
-            $this->assertTrue($Compiler->HasValidClassName($fTokens), $file . PHP_EOL);
+            $namespace = $Compiler->getNameSpace();
+            $className = $namespace .'\\'.basename($file, '.php');
+        
+            
+            try {
+                include_once($file);
+                $classObject = new $className;
+                if ($classObject instanceof App\Http\Controllers\Controller) {
+                    $this->assertTrue(true, "class is instance of ...");
+                } else {
+                    $this->assertTrue(false, "class is not instance of ...");
+                }
+            } catch (Exception $e) {
+                $this->assertTrue(false, "Controller name is not Classname!");
+            }
+
         }
     }
 }
@@ -76,7 +91,8 @@ class CompilerCheck {
                     if (!is_array($this->tokens[$j])) { break; }
                     else if (token_name($this->tokens[$j][0]) == $fTokens[1]) { continue; }
                     else { 
-                        if(token_name($this->tokens[$j][0]) == $fTokens[2] && basename($this->filename, '.php') == $this->tokens[$j][1]) 
+                        if(token_name($this->tokens[$j][0]) == $fTokens[2] && 
+                            basename($this->filename, '.php') == $this->tokens[$j][1]) 
                             return true;
                         break;
                     }
@@ -84,5 +100,14 @@ class CompilerCheck {
             } 
         }
         return false;
+    }
+
+    function getNameSpace() {
+        for ($i = 0; $i < count($this->tokens); $i++) {
+            if (is_array($this->tokens[$i]) && $this->tokens[$i][1] == "namespace") {
+                while (++$i < count($this->tokens) && token_name($this->tokens[$i][0]) == 'T_WHITESPACE');
+                return ($i < count($this->tokens)) ? $this->tokens[$i][1]: null;
+            }
+        }
     }
 }
