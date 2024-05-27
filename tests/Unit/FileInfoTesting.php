@@ -54,7 +54,7 @@ final class FileInfoTesting extends TestCase
             
             try {
                 include_once($file);
-                $classObject = new $className;
+                $classObject = (new ReflectionClass($className))->newInstanceWithoutConstructor(); //That's it!
                 if ($classObject instanceof App\Http\Controllers\Controller) {
                     $this->assertTrue(true, "class is instance of ...");
                 } else {
@@ -82,7 +82,7 @@ final class FileInfoTesting extends TestCase
             
             try {
                 include_once($file);
-                $classObject = new $className;
+                $classObject = (new ReflectionClass($className))->newInstanceWithoutConstructor(); //That's it!
                 if ($classObject instanceof App\Repository\BaseRepository) {
                     $this->assertTrue(true, "class is instance of ...");
                 } else {
