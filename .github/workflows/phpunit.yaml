@@ -1,6 +1,6 @@
 # .github/workflows/phpunit.yml
 
-name: Tests failed! Please fix file structure before merging.
+name: Running PHPTests
 
 on:
   push:
