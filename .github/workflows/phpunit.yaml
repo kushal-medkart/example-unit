@@ -1,6 +1,6 @@
 # .github/workflows/phpunit.yml
 
-name: Run PHPUnit tests
+name: Running PHPTests
 
 on:
   push:
@@ -9,8 +9,8 @@ on:
     branches: [master]
 
 jobs:
-  test:
-
+  PHPUnit:
+    name: Tests failed! Please fix file structure before merging!
     runs-on: ubuntu-latest
 
     steps:
@@ -34,3 +34,7 @@ jobs:
 
     - name: Tests failed! Please fix file structure before merging.
       run: vendor/bin/phpunit tests/Unit/FileInfoTesting.php
+
+
+    concurrency:
+      group: 'run-tests'

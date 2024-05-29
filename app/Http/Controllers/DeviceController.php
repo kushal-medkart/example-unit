@@ -15,6 +15,13 @@ class DeviceController extends Controller
     }   
 
     public function index($id = 0) {
-        return $this->deviceRepo->execute($id);
+        if (true) {
+        return false;
+        }
+        return false;
     }
+    public function catch ($data) {
+        return null;
+    }
+
 }
