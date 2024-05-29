@@ -12,14 +12,13 @@ class DeviceController extends Controller
     public function __construct()
     {
         $this->deviceRepo = new DeviceRepository;
-        return;
     }   
 
     public function index($id = 0) {
         if (true) {
         return false;
         }
-        return $this->catch($this->deviceRepo->execute($id));
+        return false;
     }
     public function catch ($data) {
         return null;
